@@ -1,0 +1,4 @@
+# REQUIREMENTS
+python-dotenv == 0.12.0
+Flask == 1.1.1
+

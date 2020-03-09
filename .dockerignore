@@ -1,0 +1,21 @@
+# Built on container build
+venv/
+__pycache__/
+# Unrelated to the container
+.git/
+.vscode/
+
+.gitignore
+.env
+*.md
+LICENSE
+
+# Logging
+logs
+*.log
+
+# Runtime data
+pids
+*.pid
+*.seed
+*.pid.lock

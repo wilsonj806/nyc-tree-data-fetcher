@@ -1,21 +1,33 @@
 # Docker compose for dev
 # $ cat .env
-version: '3'
+version: '3.5'
 services:
   app:
-    # run using python
-    image: python:3
-    container_name: todolet-dev
+    build:
+      context: .
+    container_name: nyc-tree-fetch
     restart: always
     # Mount everything in pwd to /src in the container
     volumes:
       - .:/src
     working_dir: /src
-    build:
-      context: .
+
     command: flask run --host 0.0.0.0
     links:
-    ## Need an env file but also have an api token at some point
-    # env_file: .env
+      - app-redis
+      ## Need an env file but also have an api token at some point
+    env_file: .env
+    environment:
+      APP_TOKEN: /run/secrets/app_token
+    secrets:
+      - app_token
     ports:
       - '5000:5000'
+  app-redis:
+    image: redis:5
+    container_name: treeapp-redis
+    ports:
+      - '6379:6379'
+secrets:
+  app_token:
+    file: app_token.txt

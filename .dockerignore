@@ -1,3 +1,6 @@
+# Secrets
+app_token.txt
+
 # Built on container build
 venv/
 __pycache__/

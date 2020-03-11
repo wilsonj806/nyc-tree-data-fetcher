@@ -2,6 +2,9 @@
 ## General Description
 A Flask/ Python based app to fetch, process, and send processed data to whichever client wants/ has access to it. Said data is based off of the [2015 NYC tree census data](https://data.cityofnewyork.us/Environment/2015-Street-Tree-Census-Tree-Data/uvpi-gqnh).
 
+## Additional Docs
+- [DevOps](./docs/DevOps.md)
+
 ## Requirements
 General requirements are:
 - the app must use Python
@@ -21,3 +24,22 @@ Clone the repo with your favorite SCM or manually download it
 This app will be Dockerized from the start. It includes a `DockerFile` and a `docker-compose.yml` file for convenience and so you don't have to fight Python/ pyenv/ etc when you try to set up your local dev environment.
 
 ### Without Docker
+Once you clone the repo you'll need to change directory into the project directory and run the below to setup the virtual environment:
+```
+  python -m venv venv
+```
+
+Then activate the virtual envrionment:
+```
+. venv/bin/activate
+```
+
+Then install packages
+```
+  venv/bin/pip install -r requirements.txt
+```
+
+To test it, run flask with the below:
+```
+  flask run
+```

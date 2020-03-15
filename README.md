@@ -20,6 +20,16 @@ Clone the repo with your favorite SCM or manually download it
   ```
 
 ## Local Development
+### The .env file
+A `.env` is required for the project and will require at least two or all three of the below:
+```env
+  IS_DOCKER=true
+  FLASK_ENV=development
+  APP_TOKEN=secret
+```
+
+The `APP_TOKEN` key isn't added here if you're using Docker Compose. If you are using Docker Compose, follow the [Docker docs instructions](https://docs.docker.com/engine/swarm/secrets/#use-secrets-in-compose) on adding secrets to your `docker-compose.yml` file and add an `app_token.txt` file with the token.
+
 ### With Docker
 This app will be Dockerized from the start. It includes a `DockerFile` and a `docker-compose.yml` file for convenience and so you don't have to fight Python/ pyenv/ etc when you try to set up your local dev environment.
 

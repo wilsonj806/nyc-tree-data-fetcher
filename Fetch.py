@@ -1,34 +1,45 @@
 # Std lib imports
 import os
+import json
 from pathlib import Path
 
 ## Lib Imports
+import redis
 import requests
 from dotenv import load_dotenv
 
-def fetch_data():
-  # Check to make sure we're not in docker compose
-  envPath = os.getenv('APP_TOKEN')
-  token = open(envPath, 'r').read() if Path(envPath).exists() else os.getenv('APP_TOKEN')
-  headers = { 'X-App-Token': token }
-  req = requests.get("https://data.cityofnewyork.us/resource/uvpi-gqnh.json", headers = headers)
+# Global Module Var
+isDocker = os.getenv('IS_DOCKER')
 
-  json = req.json()
-
-  return json
+cacheHost = 'app-redis' if isDocker else 'localhost'
+red_cache = redis.Redis(host = cacheHost, port = 6379)
 
 class Fetch:
-  def check_cache(self, keyname):
+  base_key = 'base'
+
+  def check_cache(self):
     # if keyname not in cache call fetch_fn, cache it
+    cachedData = red_cache.get(self.base_key)
+    if not cachedData:
+      res = self.fetch_all_data()
+      strRes = json.dumps(res)
+      red_cache.set(self.base_key, strRes)
+      return res
     # else return cache
+    else:
+      return json.loads(cachedData)
 
-  def fetch_all_data(self, keyname):
+  def fetch_all_data(self):
     # Check to make sure we're not in docker compose
-    envPath = os.getenv('APP_TOKEN')
-    token = open(envPath, 'r').read() if Path(envPath).exists() else os.getenv('APP_TOKEN')
-    headers = { 'X-App-Token': token }
-    req = requests.get("https://data.cityofnewyork.us/resource/uvpi-gqnh.json", headers = headers)
+    appToken = os.getenv('APP_TOKEN')
+    token = open(envPath, 'r').read() if isDocker else appToken
 
-    json = req.json()
+    headers = {
+      'X-App-Token': token,
+    }
+    req = requests.get("https://data.cityofnewyork.us/resource/uvpi-gqnh.json?$limit=3000", headers = headers)
 
-    return json
+    res = req.json()
+
+    return res
+

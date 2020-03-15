@@ -9,7 +9,7 @@ from flask import Flask
 from dotenv import load_dotenv
 
 # App Modules
-from Fetch import Fetch
+from fetch import Fetch
 from processor.processor import Processor
 
 ## Load ENV
@@ -21,7 +21,7 @@ fetcher = Fetch()
 
 @app.route('/')
 def initial_ping():
-  return """NYC Tree Data Fetcher, Version: 0.0.0"""
+  return """NYC Tree Data Fetcher; Version: 0.0.0"""
 
 @app.route('/fetch-all')
 def fetch_all():

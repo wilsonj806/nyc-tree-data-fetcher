@@ -32,7 +32,7 @@ class Fetch:
   def fetch_all_data(self):
     # Check to make sure we're not in docker compose
     appToken = os.getenv('APP_TOKEN')
-    token = open(envPath, 'r').read() if isDocker else appToken
+    token = open(appToken, 'r').read() if isDocker else appToken
 
     headers = {
       'X-App-Token': token,

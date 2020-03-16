@@ -22,8 +22,7 @@ class Processor:
     return reduce(reduce_by_nta, data, {})
 
   def count_by_boro(data, boro):
-    fixedBoro = re.sub('\%32', ' ', boro).title()
-    print(fixedBoro)
+    fixedBoro = re.sub('\%20', ' ', boro).title()
     boroRe = '(Queens|Staten Island|Manhattan|Brooklyn|Bronx)'
     if not re.search(boroRe, fixedBoro):
       raise TypeError('Invalid borough selection, expecting either: "Queens", "Staten Island", "Manhattan", "Brooklyn", or "Bronx"')

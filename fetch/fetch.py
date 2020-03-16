@@ -12,6 +12,9 @@ from dotenv import load_dotenv
 isDocker = os.getenv('IS_DOCKER')
 
 cacheHost = 'app-redis' if isDocker else 'localhost'
+isProd = os.getenv('FLASK_ENV') == 'production'
+
+host = os.getenv('REDIS_URI') if isProd else cacheHost
 red_cache = redis.Redis(host = cacheHost, port = 6379)
 
 class Fetch:

@@ -6,16 +6,21 @@ from pathlib import Path
 import redis
 import requests
 from flask import Flask
+from flask_cors import CORS
 from dotenv import load_dotenv
 
 # App Modules
 from fetch import Fetch
-from processor.processor import Processor
+from processor import Processor
 
 ## Load ENV
 load_dotenv()
 
+isDev = os.getenv('FLASK_ENV') == 'development'
+accepted = '*' if isDev else []
+
 app = Flask(__name__)
+CORS(app, resources = { r'/data/*': { 'origins': accepted}})
 
 fetcher = Fetch()
 

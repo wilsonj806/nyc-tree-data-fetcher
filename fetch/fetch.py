@@ -11,11 +11,11 @@ from dotenv import load_dotenv
 # Global Module Var
 isDocker = os.getenv('IS_DOCKER')
 
-cacheHost = 'app-redis' if isDocker else 'localhost'
+cacheHost = 'redis://app-redis:6379' if isDocker else 'redis://localhost:6379'
 isProd = os.getenv('FLASK_ENV') == 'production'
 
 host = os.getenv('REDIS_URL').encode('idna') if isProd else cacheHost
-red_cache = redis.Redis(host = host, port = 6379)
+red_cache = redis.from_url(host)
 
 class Fetch:
   base_key = 'base'

@@ -15,7 +15,7 @@ cacheHost = 'app-redis' if isDocker else 'localhost'
 isProd = os.getenv('FLASK_ENV') == 'production'
 
 host = os.getenv('REDIS_URL') if isProd else cacheHost
-red_cache = redis.Redis(host = cacheHost, port = 6379)
+red_cache = redis.Redis(host = host, port = 6379)
 
 class Fetch:
   base_key = 'base'

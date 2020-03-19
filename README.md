@@ -11,6 +11,10 @@ General requirements are:
 - the app must request open source data
 - the app must be able to cache the end result.
 
+## Available Routes
+- [Count of trees per borough](https://nyc-tree-data-fetcher.herokuapp.com/data/count)
+- [Count of species of trees](https://nyc-tree-data-fetcher.herokuapp.com/data/species)
+
 ## Cloning Instructions
 You'll need to have at least Python 3.8.1 installed. PyEnv is also recommended in order to manage Python versions as well as the PyEnv-virtualenv plugin.
 

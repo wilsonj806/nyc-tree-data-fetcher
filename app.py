@@ -28,13 +28,13 @@ fetcher = Fetch()
 def initial_ping():
   return """NYC Tree Data Fetcher; Version: 0.0.0"""
 
-@app.route('/data')
-def fetch_all():
-  json = fetcher.check_cache()
-  return {
-    '_data_length': len(json),
-    'data': json
-  }
+# @app.route('/data')
+# def fetch_all():
+#   json = fetcher.check_cache()
+#   return {
+#     '_data_length': len(json),
+#     'data': json
+#   }
 
 @app.route('/data/count')
 def count_per_boro():

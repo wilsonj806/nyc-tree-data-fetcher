@@ -26,7 +26,7 @@ class Fetch:
     if not cachedData:
       res = self.fetch_all_data()
       strRes = json.dumps(res)
-      red_cache.set(self.base_key, strRes)
+      red_cache.setex(self.base_key, strRes, 604000)
       return res
     # else return cache
     else:

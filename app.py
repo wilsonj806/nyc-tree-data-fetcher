@@ -17,7 +17,7 @@ from processor import Processor
 load_dotenv()
 
 isDev = os.getenv('FLASK_ENV') == 'development'
-accepted = '*' if isDev else 'https://wilsonj806.github.io/'
+accepted = '*' if isDev else 'https://wilsonj806.github.io/nyc-arbor-logger/'
 
 app = Flask(__name__)
 app.config['CORS_HEADERS'] = 'Content-Type'

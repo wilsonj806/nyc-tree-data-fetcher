@@ -17,7 +17,7 @@ from processor import Processor
 load_dotenv()
 
 isDev = os.getenv('FLASK_ENV') == 'development'
-accepted = '*' if isDev else ['https://wilsonj806.github.io/']
+accepted = '*' if isDev else 'https://wilsonj806.github.io/'
 
 app = Flask(__name__)
 CORS(app, resources = { r'/data/*': { 'origins': accepted}})

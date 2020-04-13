@@ -50,6 +50,12 @@ def count_per_species():
   data = Processor.count_species(data = json)
   return { 'data': data }
 
+@app.route('/data/nta')
+def count_per_nta():
+  json = fetcher.check_cache()
+  data = Processor.count_per_nta(data = json)
+  return { 'data': data }
+
 # @app.route('/data/<boro>/species')
 # def quant_boro_species(boro):
 #   return 'n/a'

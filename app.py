@@ -30,13 +30,13 @@ fetcher = Fetch()
 def initial_ping():
   return """NYC Tree Data Fetcher; Version: 0.0.0"""
 
-# @app.route('/data')
-# def fetch_all():
-#   json = fetcher.check_cache()
-#   return {
-#     '_data_length': len(json),
-#     'data': json
-#   }
+@app.route('/data')
+def fetch_all():
+  json = fetcher.check_cache()
+  return {
+    '_data_length': len(json),
+    'data': json
+  }
 
 @app.route('/data/count')
 def count_per_boro():
@@ -56,6 +56,8 @@ def count_per_nta():
   data = Processor.count_per_nta(data = json)
   return { 'data': data }
 
-# @app.route('/data/<boro>/species')
-# def quant_boro_species(boro):
-#   return 'n/a'
+@app.route('/data/<boro>/species')
+def quant_boro_species(boro):
+  json = fetcher.check_cache()
+  data = Processor.count_by_boro(data = json, boro = boro)
+  return { 'data': data }

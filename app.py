@@ -5,9 +5,10 @@ from pathlib import Path
 # Library Imports
 import redis
 import requests
-from flask import Flask
+from flask import Flask, abort
 from flask_cors import CORS
 from dotenv import load_dotenv
+from werkzeug.exceptions import NotFound
 
 # App Modules
 from fetch import Fetch
@@ -40,24 +41,40 @@ def fetch_all():
 
 @app.route('/data/count')
 def count_per_boro():
-  json = fetcher.check_cache()
-  data = Processor.count_per_boro(data = json)
-  return { 'data': data }
+  try:
+    json = fetcher.check_cache()
+    data = Processor.count_per_boro(data = json)
+    return { 'data': data }
+  except:
+    abort(500,'Something went wrong on our end :(')
 
 @app.route('/data/species')
 def count_per_species():
-  json = fetcher.check_cache()
-  data = Processor.count_species(data = json)
-  return { 'data': data }
+  try:
+    json = fetcher.check_cache()
+    data = Processor.count_species(data = json)
+    return { 'data': data }
+  except:
+    abort(500,'Something went wrong on our end :(')
 
 @app.route('/data/nta')
 def count_per_nta():
-  json = fetcher.check_cache()
-  data = Processor.count_per_nta(data = json)
-  return { 'data': data }
+  try:
+    json = fetcher.check_cache()
+    data = Processor.count_per_nta(data = json)
+    return { 'data': data }
+  except:
+    abort(500,'Something went wrong on our end :(')
 
 @app.route('/data/<boro>/species')
 def quant_boro_species(boro):
-  json = fetcher.check_cache()
-  data = Processor.count_by_boro(data = json, boro = boro)
-  return { 'data': data }
+  try:
+    json = fetcher.check_cache()
+    data = Processor.count_by_boro(data = json, boro = boro)
+    return { 'data': data }
+  except:
+    abort(400, 'Bad request, check your query string parameters')
+
+@app.errorhandler(NotFound)
+def handle_not_found(e):
+  return 'Resource not found.', 404

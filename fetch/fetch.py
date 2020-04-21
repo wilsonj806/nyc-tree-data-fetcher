@@ -8,6 +8,7 @@ import redis
 import requests
 from dotenv import load_dotenv
 
+
 # Global Module Var
 isDocker = os.getenv('IS_DOCKER')
 
